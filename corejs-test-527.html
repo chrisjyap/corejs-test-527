@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function singleDiff(str1, str2){
+            if( (str1.length - str2.length) > 1 || str1 === str2) return false;
+            if(str2.length > str1.length) str2 = [str1, str1 = str2][0];
+            var result = str1.split('').reduce(function(prev, curr, i, array){
+                //console.log('prev ' + prev + ' curr: ' + curr);
+                //console.log(array[i] + ' ' +str2.indexOf(array[i]));
+                if(curr !== str2.charAt(i)){
+                    //console.log(curr + ': ', i - str2.indexOf(curr));
+                    if( str2.indexOf(curr)!== -1 &&(i - str2.indexOf(curr)) === 1  ) return prev+ '';
+                    else return prev + curr;
+                }
+                else return prev+ '';
+
+            }, '');
+            //console.log(result);
+            return (result.length ) <= 1;
+        }
+
+        console.log("longlonglong, short: ", singleDiff("longlonglong", "short"));
+        console.log("toy, dog: ", singleDiff("toy", "dog"));
+        console.log("toy, toys: ", singleDiff("toy", "toys"));
+        console.log("toy, soy: ", singleDiff("toy", "soy"));
+        console.log("cat, cart: ", singleDiff("cat", "cart"));
+        console.log("met, me: ", singleDiff("met", "me"));
+        console.log("time, emit: ", singleDiff("time", "emit"));
+        console.log("longlonglong, short: ", singleDiff("longlonglong", "short"));
+        console.log("abcd, xbcde: ", singleDiff("abcd", "xbcde"));
+        console.log("abcd, axbcd: ", singleDiff("abcd", "axbcd"));
+        console.log("a, b: ", singleDiff("a", "b"));
+        console.log("abc, abc: ", singleDiff("abc", "abc"));
+        console.log("tom, tim: ", singleDiff("tom", "tim"));
+        console.log("cat, car: ", singleDiff("cat", "car"));
+        console.log("cast, cats: ", singleDiff("cast", "cats"));
+        console.log("abcd, axbxcd: ", singleDiff("abcd", "axbxcd"));
+        console.log("adog, dog: ", singleDiff("adog", "dog"));
+        console.log("cast, cat: ", singleDiff("cast", "cat"));
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
