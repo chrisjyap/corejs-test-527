@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script>
+    function SparseString(){
+        this.string = [''];
+    }
+
+    SparseString.prototype= {
+        toString: function toString(){
+            console.log(this.string.join(''));
+        },
+
+        setChar: function setChar(i, val){
+            console.log(this.string);
+            if(i > this.string.length){
+                for(var j = 0; j< i; j++){
+                    if(typeof this.getChar(j) === 'undefined') this.string.push('');
+                    else this.string[j] = this.getChar(j);
+                }
+                this.string.push(val);
+            }
+            else this.string[i] = val;
+            //this.string.splice(i, 0, val);
+        },
+
+        getChar: function getChar(i){
+            //if(typeof this.string[i]==='undefined') return 'Not set!';
+            return this.string[i];
+        },
+
+        indexOf: function indexOf(val){
+            for(var i =0; i<this.string.length; i++){
+                if(this.string[i]=== val) return i;
+            }
+            return -1;
+        }
+
+    };
+
+    var s = new SparseString();
+    s.setChar(1, 'a');
+    s.setChar(3, 'a');
+    console.log(s.getChar(2));
+    s.toString();
+    s.setChar(2, 't');
+    s.setChar(0, 'k');
+    s.toString();
+    s.setChar(0, 'm');
+    s.toString();
+    console.log(s.getChar(3));
+    console.log(s.indexOf('t'));
+</script>
+<body>
+</body>
+</html>
