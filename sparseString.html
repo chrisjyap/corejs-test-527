@@ -41,13 +41,76 @@
 
     };
 
-    var s = new SparseString();
+    /*var s = new SparseString();
+     s.setChar(1, 'a');
+     s.setChar(3, 'a');
+     console.log(s.getChar(2));
+     s.toString();
+     s.setChar(2, 't');
+     s.setChar(0, 'k');
+     s.toString();
+     s.setChar(0, 'm');
+     s.toString();
+     console.log(s.getChar(3));
+     console.log(s.indexOf('t'));*/
+
+    function SparseStringObj(){
+        this.letters = {};
+        this.indices = {};
+    }
+
+    SparseStringObj.prototype = {
+        toString: function toString(){
+            var result = ''
+            for(var i = 0; i< Object.size(this.indices); i++)
+                result += this.indices[i];
+
+            console.log(result);
+        },
+
+        setChar: function setChar(i, val){
+            if(i > Object.size(this.indices)){
+                for(var j = 0; j< i; j++)
+                    if(typeof this.getChar(j) === 'undefined') this.indices[j]=  '';
+            }
+            var temp = this.indices[i];
+            if(this.letters.hasOwnProperty(temp)) this.letters[temp].splice( this.letters[temp].indexOf(i), 1);
+            
+            this.indices[i] = val;
+            if(!this.letters.hasOwnProperty(val)) this.letters[val]= [];
+            this.letters[val].push(i);
+
+        },
+
+        getChar: function getChar(i){
+            return this.indices[i];
+        },
+
+        indexOf: function indexOf(val){
+            if(!(val in this.letters)) return -1;
+            return this.letters[val].reduce(function(prev, curr){
+                if(curr < prev || prev === -1) return curr;
+                return prev;
+            }, -1);
+        }
+    };
+
+    Object.size = function(obj) {
+        var size = 0;
+        for(var key in obj)
+            if (obj.hasOwnProperty(key)) size++;
+
+        return size;
+    };
+
+
+    var s = new SparseStringObj();
     s.setChar(1, 'a');
-    s.setChar(3, 'a');
+    s.setChar(3, 'e');
     console.log(s.getChar(2));
     s.toString();
-    s.setChar(2, 't');
-    s.setChar(0, 'k');
+    s.setChar(2, 'k');
+    s.setChar(0, 'f');
     s.toString();
     s.setChar(0, 'm');
     s.toString();
